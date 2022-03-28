@@ -1,0 +1,6 @@
+[
+    {
+      "name": "IpBlockerContainer",
+      "imageUri": "784366384221.dkr.ecr.us-west-2.amazonaws.com/ipblocker:latest"
+    }
+  ]

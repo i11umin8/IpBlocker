@@ -1,0 +1,6 @@
+{
+	"port":3000,
+	"repository": "blocklist-ipsets",
+	"url": "https://github.com/firehol/blocklist-ipsets/zipball/master/'",
+	"dbUrl": "localhost"
+}

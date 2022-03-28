@@ -1,0 +1,30 @@
+version: 0.2
+
+# run-as: Linux-user-name
+
+env:
+  shell: bash
+phases:
+  install: 
+    on-failure: ABORT
+    commands:
+      npm install
+  pre_build:
+    on-failure: ABORT
+    commands:
+      - aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 784366384221.dkr.ecr.us-west-2.amazonaws.com/ipblocker
+      - ls -la
+      - wget https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem
+      - docker build -t ipblocker .
+  build:
+    on-failure: ABORT
+    commands:
+      - npm run test
+    finally:
+  post_build:
+    on-failure: ABORT
+    commands:
+      - docker tag ipblocker 784366384221.dkr.ecr.us-west-2.amazonaws.com/ipblocker:latest
+      - docker push 784366384221.dkr.ecr.us-west-2.amazonaws.com/ipblocker:latest
+artifacts:
+  files: ImageDefinition.json
